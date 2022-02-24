@@ -11,11 +11,16 @@ const useForm = (callback) => {
   };
 
   const handleChange = (event) => {
-    event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+      event.persist();
+      setValues(values => ({ ...values, [event.target.name]: event.target.value }));  
   };
 
+  const handleSlide = (val) => {
+    setValues(values => ({ ...values, difficulty: val}));
+  }
+
   return {
+    handleSlide,
     handleChange,
     handleSubmit,
     values,

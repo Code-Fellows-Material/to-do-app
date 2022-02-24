@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useForm from "../../hooks/form.js";
 
+
 import { v4 as uuid } from "uuid";
 import Header from "../Header/Header.jsx";
 import Items from "../Items/Items.jsx";
@@ -9,7 +10,7 @@ import Form from "../Form/Form.jsx";
 const ToDo = () => {
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem);
+  const { handleChange, handleSubmit, handleSlide } = useForm(addItem);
 
   function addItem(item) {
     console.log(item);
@@ -44,8 +45,8 @@ const ToDo = () => {
   return (
     <>
       <Header incomplete={incomplete} />
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} />
-      <Items list={list} toggleComplete={toggleComplete} />
+      <Form handleChange={handleChange} handleSubmit={handleSubmit} handleSlide={handleSlide} />   
+      <Items list={list} toggleComplete={toggleComplete} />           
     </>
   );
 };

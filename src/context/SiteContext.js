@@ -6,7 +6,7 @@ const SiteContextProvider = (props) => {
   // Initial Provider State
   const state = {
     displayComplete: true,
-    numItemsToDisplay: 5,
+    numItemsToDisplay: 2,
     defaultSort: "Alpha",
   };
 
