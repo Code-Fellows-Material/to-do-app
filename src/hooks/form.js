@@ -7,7 +7,6 @@ const useForm = (callback) => {
 
 
   const handleSubmit = (event) => {
-    console.log("IN FORM: handleSubmit() VALUES:", values)
     if (event) event.preventDefault();
     let decoupledValue = JSON.parse(JSON.stringify(values));
     callback(decoupledValue);

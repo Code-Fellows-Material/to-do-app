@@ -7,10 +7,12 @@ export const SiteContext = React.createContext();
 
 const SiteContextProvider = (props) => {
   
-  
+  const setNumDisplay = (num) => {
+    setState(prevState =>({...prevState, numItemsToDisplay: num}))
+  }
+
   const toggleDisplay = () => {
     setState(prevState =>({...prevState, displayComplete: !prevState.displayComplete}))
-    console.log("togo")
   }
 
    // Initial Provider State
@@ -18,7 +20,8 @@ const SiteContextProvider = (props) => {
   displayComplete: true,
   numItemsToDisplay: 3,
   defaultSort: 'Alpha',
-  toggleDisplay: toggleDisplay
+  toggleDisplay: toggleDisplay,
+  setNumDisplay: setNumDisplay 
 };
 
    // Reducer Function
