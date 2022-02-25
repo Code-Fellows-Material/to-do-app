@@ -5,9 +5,12 @@ const useForm = (callback) => {
 
   const [values, setValues] = useState({});
 
+
   const handleSubmit = (event) => {
+    console.log("IN FORM: handleSubmit() VALUES:", values)
     if (event) event.preventDefault();
-    callback(values);
+    let decoupledValue = JSON.parse(JSON.stringify(values));
+    callback(decoupledValue);
   };
 
   const handleChange = (event) => {

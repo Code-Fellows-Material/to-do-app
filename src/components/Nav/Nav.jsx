@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import NavMenu from '../NavMenu/NavMenu';
+
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -38,23 +38,12 @@ export default function Nav() {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            To Do 
+            To Do
           </Typography>
           <Button color='inherit'>Login</Button>
         </Toolbar>
       </AppBar>
-      <Menu
-        id='basic-menu'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      <NavMenu anchorEl={anchorEl} open={open} handleClose={handleClose} />
     </Box>
   );
 }

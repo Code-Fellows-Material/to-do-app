@@ -7,11 +7,15 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 
-function Items({ list, toggleComplete }) {
+function Items({ list, toggleComplete, incomplete  }) {
   let siteContext = useContext(SiteContext);
+  const numToShow = siteContext.state.numItemsToDisplay;
+  const displayComplete = siteContext.state.displayComplete;
+
   const [showIndex, setShowIndex] = useState(0);
   const [pageNum, setPageNum] = useState(1);
-  const numToShow = siteContext.state.numItemsToDisplay;
+
+  console.log("LIST IN ITEMS:", list);
 
   let items = list.map((item) => (
     <Box
@@ -21,8 +25,8 @@ function Items({ list, toggleComplete }) {
         justifyContent: 'center',
         flexWrap: 'wrap',
         '& > :not(style)': {
-          m: 1,
-          width: '85%',
+          m: 0,
+          width: '65%',
           height: 150,
         },
       }}
@@ -97,17 +101,27 @@ function Items({ list, toggleComplete }) {
               Complete
             </Button>
           </Stack>
+          {item.id}
         </Stack>
       </Paper>
     </Box>
   ));
 
-  function setItems(itemList, num) {
-    if (items.length <= numToShow) return items;
+  function setItems(itemList, numShow) {
+    let num = numShow;
+    // console.log('inSetItems:', num)
+    if (itemList.length <= numToShow) return itemList;
     let tempArr = [];
     for (let i = showIndex; i < showIndex + num; i++) {
+      // if( ! displayComplete){
+      //   if(itemList[i].complete){
+      //     num++;
+      //     continue;
+      //   }
+      // }
       tempArr.push(itemList[i]);
     }
+    console.log("temp In set items", tempArr)
     return tempArr;
   }
 
@@ -138,8 +152,10 @@ function Items({ list, toggleComplete }) {
           variant='outlined'
           style={{ margin: '10px' }}
           onClick={() => {
+            if(pageNum * numToShow < incomplete){
             setShowIndex(showIndex + numToShow);
             setPageNum(pageNum + 1);
+            }
           }}
         >
           next
@@ -154,10 +170,11 @@ function Items({ list, toggleComplete }) {
             mb: 3,
             p:3,
             width: '90%',
+            height: '100%'
           },
         }}
       >
-        <Paper elevation={2}>{setItems(items, numToShow)}</Paper>
+        {setItems(items, numToShow)}
       </Box>
     </>
   );
