@@ -1,22 +1,33 @@
-import React, { useEffect, useState } from "react";
-import useForm from "../../hooks/form.js";
+import React, { useEffect, useState, useReducer } from 'react';
+import useForm from '../../hooks/form.js';
 
-import { v4 as uuid } from "uuid";
-import Header from "../Header/Header.jsx";
-import Items from "../Items/Items.jsx";
-import Form from "../Form/Form.jsx";
+import { v4 as uuid } from 'uuid';
+import Header from '../Header/Header.jsx';
+import Items from '../Items/Items.jsx';
+import Form from '../Form/Form.jsx';
 
 const ToDo = () => {
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem);
+  const { handleChange, handleSubmit, handleSlide } = useForm(addItem);
 
-  function addItem(item) {
-    console.log(item);
+  let emptyCheck = (item) => {
+    if(! item.assignee ) item.assignee = "No Assignee"
+
+    if(! item.difficulty)  item.difficulty = 1;
+
+    if(! item.text)  item.text = "Remember to fill in"
+    return item
+  };
+
+
+  function addItem(item) {   
+    
+    item = emptyCheck(item)
     item.id = uuid();
-    console.log(item.id)
     item.complete = false;
-    setList([...list, item]);
+    setList(prevList => [...prevList, item]);
+
   }
 
   function deleteItem(id) {
@@ -25,6 +36,7 @@ const ToDo = () => {
   }
 
   function toggleComplete(id) {
+    console.log('togl id', id)
     const items = list.map((item) => {
       if (item.id == id) {
         item.complete = !item.complete;
@@ -44,8 +56,16 @@ const ToDo = () => {
   return (
     <>
       <Header incomplete={incomplete} />
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} />
-      <Items list={list} toggleComplete={toggleComplete} />
+      <Form
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleSlide={handleSlide}
+      />
+      <Items
+        list={list}
+        toggleComplete={toggleComplete}
+        incomplete={incomplete}
+      />
     </>
   );
 };

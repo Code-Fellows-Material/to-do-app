@@ -1,8 +1,7 @@
 
 import React from 'react';
-import '@blueprintjs/core/lib/css/blueprint.css';
 
-import ToDo from './components/todo/todo.js';
+import Main from './components/Main'
 import SiteContextProvider from './context/SiteContext.js';
 
 export default class App extends React.Component {
@@ -10,7 +9,7 @@ export default class App extends React.Component {
     return (
       <>
         <SiteContextProvider>
-          <ToDo />
+          <Main />
         </SiteContextProvider>
       </>
     );
