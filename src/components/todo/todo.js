@@ -36,7 +36,6 @@ const ToDo = () => {
   }
 
   function toggleComplete(id) {
-    console.log('togl id', id)
     const items = list.map((item) => {
       if (item.id == id) {
         item.complete = !item.complete;
