@@ -5,10 +5,10 @@
     return list.filter((item) => !item.complete)
   }
 
-  const setShowArr = (numToShow, pageNum, list, displayComplete, totalItems) => {
+  const setShowArr = (numToShow, pageNum, list, displayComplete, setTotalItems) => {
     let tempArr = setDisplayList(list, displayComplete);
     const len = tempArr.length;
-    totalItems = len;
+    setTotalItems(len);
     
     const startIdx = numToShow * pageNum;
     const endIdx = (len - startIdx) > numToShow ? 
