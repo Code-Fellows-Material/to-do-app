@@ -13,6 +13,10 @@ function Items({ list, toggleComplete, incomplete: incompleteCount  }) {
   const numToShow = siteContext.state.numItemsToDisplay;
   const displayComplete = siteContext.state.displayComplete;
 
+  const setTotalItems = (num) => {
+    totalItems = num;
+  }
+
   // set component state 
   const [pageNum, setPageNum] = useState(0);
 
@@ -63,7 +67,7 @@ function Items({ list, toggleComplete, incomplete: incompleteCount  }) {
           },
         }}
       >
-      {makeItems(setShowArr(numToShow, pageNum, list, displayComplete, totalItems), toggleComplete)}
+      {makeItems(setShowArr(numToShow, pageNum, list, displayComplete, setTotalItems), toggleComplete)}
       </Box>
     </>
   );
