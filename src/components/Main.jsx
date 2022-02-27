@@ -1,4 +1,6 @@
 import React from 'react';
+import { When } from 'react-if';
+
 import Nav from './Nav/Nav';
 import ToDo from './todo/todo';
 
@@ -9,12 +11,16 @@ import LoginContext from '../context/LoginContext.js';
 const Main = () => {
   return (
     <LoginContext>
-      
-      <Auth>
+     
         <Login />
+
+        <Auth capability='read'>
+        <Nav />
+        <ToDo />
       </Auth>
 
-      <Auth capability='create'>
+
+      {/* <Auth capability='create'>
         <Nav />
         <ToDo />
       </Auth>
@@ -27,7 +33,7 @@ const Main = () => {
       <Auth capability='delete'>
         <Nav />
         <ToDo />
-      </Auth>
+      </Auth> */}
     </LoginContext>
   );
 };

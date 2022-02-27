@@ -7,11 +7,9 @@ import SiteContextProvider from './context/SiteContext.js';
 export default class App extends React.Component {
   render() {
     return (
-      <>
         <SiteContextProvider>
           <Main />
         </SiteContextProvider>
-      </>
     );
   }
 }
