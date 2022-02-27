@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,8 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import NavMenu from '../NavMenu/NavMenu';
 
-
+import { LoginContext } from '../../context/LoginContext';
 export default function Nav() {
+  const login = useContext(LoginContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -40,7 +41,7 @@ export default function Nav() {
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             To Do
           </Typography>
-          <Button color='inherit'>Login</Button>
+          <Button color='inherit'onClick={login.logout}>Logout</Button>
         </Toolbar>
       </AppBar>
       <NavMenu anchorEl={anchorEl} open={open} handleClose={handleClose} />

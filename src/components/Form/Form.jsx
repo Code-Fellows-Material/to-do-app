@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 
+
 function Form({ handleChange, handleSubmit, handleSlide }) {
   function onChangeSlider(event, newValue) {
     handleSlide(newValue);

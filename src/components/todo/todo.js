@@ -63,7 +63,6 @@ const ToDo = () => {
       <Items
         list={list}
         toggleComplete={toggleComplete}
-        incomplete={incomplete}
       />
     </>
   );

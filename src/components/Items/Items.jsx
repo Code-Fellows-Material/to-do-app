@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { SiteContext } from '../../context/SiteContext';
+
 import makeItems from './makeItems'
 import setShowArr from './setShowArr';
 
-function Items({ list, toggleComplete, incomplete: incompleteCount  }) {
+import { SiteContext } from '../../context/SiteContext';
+
+function Items({ list, toggleComplete}) {
   
   let totalItems = 0;
   // access site context state and grab the 
