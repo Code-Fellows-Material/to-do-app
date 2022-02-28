@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
+import Shaker  from './Shaker';
 import { When } from 'react-if';
+import { encode } from 'js-base64';
 
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
@@ -11,12 +13,15 @@ import Card from '@mui/material/Card';
 
 import { LoginContext } from '../../context/LoginContext';
 
-let initialState = { username: '', password: '' };
+let initialState = { username: '', password: '', role: 'admin' };
 
 const Login = () => {
   const login = useContext(LoginContext);
 
   const [loginState, setLoginState] = useState(initialState);
+  const [signUpState, setSignUpState] = useState(false);
+  const [signInState, setSignInState] = useState(true);
+  const [wiggleState, setWiggleState] = useState(false);
 
   const handlePasswordChange = (e) => {
     setLoginState((prev) => ({ ...prev, password: e.target.value }));
@@ -25,18 +30,45 @@ const Login = () => {
     setLoginState((prev) => ({ ...prev, username: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(loginState);
+  const handleSignUpClick = () => {
+    setSignUpState(!signUpState);
+  };
 
-    login.login(loginState.username, loginState.password);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let data;
+    if (signUpState) {
+      console.log(loginState)
+      const response = await fetch('http://localhost:3001/signup', {
+        method: 'post',
+        body: JSON.stringify(loginState),
+        headers: { 'Content-Type': 'application/json' },
+      });
+      data = await response.json();
+    } else {
+      try {
+        const response = await fetch('http://localhost:3001/signin', {
+          method: 'post',
+          headers: {
+            authorization: encode(
+              `${loginState.username}:${loginState.password}`
+            ),
+          },
+        });
+        data = await response.json();
+      } catch (e) {
+        // console.log("ERROR:", e)
+        setWiggleState(true);
+        setSignInState(false);
+        return;
+      }
+    }
+    console.log(data);
+    login.login(data);
   };
 
   return (
     <>
-      <When condition={login.loggedIn}>
-        {/* <Button onClick={login.logout}>Log Out</Button> */}
-      </When>
       <When condition={!login.loggedIn}>
         <Box
           sx={{
@@ -50,7 +82,14 @@ const Login = () => {
           }}
         >
           <Stack spacing={4}>
-            <Card variant="outlined" sx={{backgroundColor: '#1976D2', border: '4px solid white', borderRadius: '14px'}}>
+            <Card
+              variant='outlined'
+              sx={{
+                backgroundColor: '#1976D2',
+                border: '4px solid white',
+                borderRadius: '14px',
+              }}
+            >
               <Typography
                 sx={{
                   fontWeight: 'bold',
@@ -71,36 +110,40 @@ const Login = () => {
                 '& > :not(style)': {
                   m: 0,
                   width: '100%',
-                  height: 400,
+                  height: 380,
                 },
               }}
             >
               <Paper>
-                <Paper
-                  sx={{ m: 3, backgroundColor: '#1976D2', width: '400px' }}
+                <Stack
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    m: 0,
+                  }}
                 >
-                  <Typography
+                  
+                <Shaker signUpState={signUpState} signInState={signInState} wiggleState={wiggleState} setWiggleState={setWiggleState} /> 
+                  <Button
+                    onClick={handleSignUpClick}
                     sx={{
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                      color: 'white',
+                      mt: 2,
+                      mb: 0,
                     }}
-                    variant='h2'
                   >
-                    Log In
-                  </Typography>
-                </Paper>
-
+                    {signUpState ? 'Log In' : 'Sign Up'}
+                  </Button>
+                </Stack>
                 <form onSubmit={handleSubmit}>
-                  <Stack sx={{ m: 3 }}>
+                  <Stack sx={{ mx: 3 }}>
                     <TextField
-                      sx={{ m: 3 }}
+                      sx={{ mx: 3, mt: 2 }}
                       placeholder='UserName'
                       name='username'
                       onChange={handleUserChange}
                     />
                     <TextField
-                      sx={{ m: 3 }}
+                      sx={{ m: 3, mt: 3 }}
                       placeholder='password'
                       name='password'
                       onChange={handlePasswordChange}
@@ -110,7 +153,7 @@ const Login = () => {
                       sx={{ mx: 3, width: '50%', alignSelf: 'center' }}
                       variant='outlined'
                     >
-                      Login
+                      {signUpState ? 'Sign Up' : 'Log In'}
                     </Button>
                   </Stack>
                 </form>

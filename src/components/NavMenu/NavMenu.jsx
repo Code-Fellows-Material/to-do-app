@@ -85,12 +85,6 @@ export default function NavMenu({ anchorEl, open, handleClose }) {
           justifyContent: 'space-around',
         }}
       >
-        <Button
-          sx={{ backgroundColor: 'hsla(0, 39%, 61%, 0.3)' }}
-          onClick={handleClose}
-        >
-          Logout
-        </Button>
       </MenuItem>
     </Menu>
   );
