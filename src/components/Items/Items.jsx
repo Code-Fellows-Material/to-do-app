@@ -7,7 +7,7 @@ import setShowArr from './setShowArr';
 
 import { SiteContext } from '../../context/SiteContext';
 
-function Items({ list, toggleComplete}) {
+function Items({ list, toggleComplete, deleteItem}) {
   
   let totalItems = 0;
   // access site context state and grab the 
@@ -48,7 +48,7 @@ function Items({ list, toggleComplete}) {
           variant='outlined'
           style={{ margin: '10px' }}
           onClick={() => {
-            if((pageNum + 1) * numToShow <= totalItems){
+            if((pageNum + 1) * numToShow < totalItems){
             setPageNum(pageNum + 1);
             }
           }}
@@ -69,7 +69,7 @@ function Items({ list, toggleComplete}) {
           },
         }}
       >
-      {makeItems(setShowArr(numToShow, pageNum, list, displayComplete, setTotalItems), toggleComplete)}
+      {makeItems(setShowArr(numToShow, pageNum, list, displayComplete, setTotalItems), toggleComplete, deleteItem)}
       </Box>
     </>
   );

@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-export default (list, toggleComplete) => {
+export default (list, toggleComplete, deleteItem) => {
   let items = list.map((item) => (
     <Box
       key={Math.random()*10}
@@ -77,19 +77,33 @@ export default (list, toggleComplete) => {
                 gutterBottom
                 component='span'
               >
-                Complete: {item.complete.toString()}
+                Complete: {String(item.complete)}
               </Typography>
             </Paper>
 
+            <Stack direction={'row'}>
             <Button
               sx={{
                 backgroundColor: item.complete ? 'lightGrey' : '#1976D2',
+                mx: 1
               }}
               variant='contained'
               onClick={() => toggleComplete(item.id)}
             >
               Complete
             </Button>
+            <Button
+              sx={{
+                color: 'rgba(193, 66, 66)',
+                borderColor: 'rgba(193, 66, 66)',
+                mx: 1
+              }}
+              variant='outlined'
+              onClick={() => deleteItem(item.id)}
+            >
+              Delete
+            </Button>
+            </Stack>
           </Stack>
           {/* {item.id} */}
         </Stack>

@@ -10,6 +10,7 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.3",
+    "js-base64": "^3.7.2",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^6.0.1",
     "normalize.css": "^8.0.1",
@@ -20,6 +21,8 @@
     "react-if": "^4.0.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
+    "reshake": "^1.2.3",
+    "universal-cookie": "^4.0.4",
     "uuid": "^8.3.2"
   },
   "scripts": {
